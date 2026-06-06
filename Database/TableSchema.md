@@ -18,9 +18,16 @@
 | LastName | NVARCHAR(50) |  | User last name |
 | Email | NVARCHAR(100) | UQ | Unique email address |
 | PhoneNumber | NVARCHAR(20) |  | User contact number |
-| OrganizationName | NVARCHAR(100) |  | Organization or company name |
+| OrganizationId | NVARCHAR(100) |  | References `Organization(OrganizationId)` |
 | ProfilePhoto | NVARCHAR(255) |  | File path or URL for profile image |
 | RoleId | INT | FK | References `Roles(RoleId)`|
+
+### Organization
+
+| Column | Type | Key | Notes |
+|---|---|---|---|
+| OrganizationId | INT | PK | Unique Organization identifier |
+| OrganizationName | NVARCHAR(50) |  | Organization Name such as Company Name or Organization Name |
 
 ### UserSecurity
 
