@@ -17,8 +17,8 @@
 | FirstName | VARCHAR(50) |  | User first name |
 | LastName | VARCHAR(50) |  | User last name |
 | Email | VARCHAR(100) | UQ | Unique email address |
-| PhoneNumber | VARCHAR(20) |  | User contact number |
-| OrganizationId | VARCHAR(100) |  | References `Organization(OrganizationId)` |
+| PhoneNumber | DECIMAL(10) |  | User contact number |
+| OrganizationId | INT | FK | References `Organization(OrganizationId)` |
 | ProfilePhoto | VARCHAR(255) |  | File path or URL for profile image |
 | RoleId | INT | FK | References `Roles(RoleId)`|
 
