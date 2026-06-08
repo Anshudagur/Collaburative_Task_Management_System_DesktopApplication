@@ -7,19 +7,19 @@
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | RoleId | INT | PK | Unique role identifier |
-| RoleName | NVARCHAR(50) |  | Role name such as Admin or User |
+| RoleName | VARCHAR(50) |  | Role name such as Admin or User |
 
 ### Users
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | UserId | INT | PK | Unique user identifier |
-| FirstName | NVARCHAR(50) |  | User first name |
-| LastName | NVARCHAR(50) |  | User last name |
-| Email | NVARCHAR(100) | UQ | Unique email address |
-| PhoneNumber | NVARCHAR(20) |  | User contact number |
-| OrganizationId | NVARCHAR(100) |  | References `Organization(OrganizationId)` |
-| ProfilePhoto | NVARCHAR(255) |  | File path or URL for profile image |
+| FirstName | VARCHAR(50) |  | User first name |
+| LastName | VARCHAR(50) |  | User last name |
+| Email | VARCHAR(100) | UQ | Unique email address |
+| PhoneNumber | VARCHAR(20) |  | User contact number |
+| OrganizationId | VARCHAR(100) |  | References `Organization(OrganizationId)` |
+| ProfilePhoto | VARCHAR(255) |  | File path or URL for profile image |
 | RoleId | INT | FK | References `Roles(RoleId)`|
 
 ### Organization
@@ -27,15 +27,15 @@
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | OrganizationId | INT | PK | Unique Organization identifier |
-| OrganizationName | NVARCHAR(50) |  | Organization Name such as Company Name or Organization Name |
+| OrganizationName | VARCHAR(50) |  | Organization Name such as Company Name or Organization Name |
 
 ### UserSecurity
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | UserId | INT | PK, FK | References `Users(UserId)`|
-| PasswordHash | NVARCHAR(255) |  | Hashed password |
-| Salt | NVARCHAR(255) |  | Password salt |
+| PasswordHash | VARCHAR(255) |  | Hashed password |
+| Salt | VARCHAR(255) |  | Password salt |
 | IsFrozen | BIT |  | Indicates account lock status  |
 | FreezeUntil | DATETIME |  | Lock end time if applicable  |
 
@@ -44,10 +44,10 @@
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | ProjectId | INT | PK | Unique project identifier  |
-| ProjectName | NVARCHAR(100) |  | Project title  |
+| ProjectName | VARCHAR(100) |  | Project title  |
 | StartingDate | DATE |  | Project start date  |
 | EndingDate | DATE |  | Project end date  |
-| Comment | NVARCHAR(500) |  | Optional project comment  |
+| Comment | VARCHAR(500) |  | Optional project comment  |
 | StatusId | INT | FK | References `ProjectStatus(StatusId)` |
 | CreatedAt | DATETIME |  | Record creation time  |
 | CreatedBy | INT | FK | References `Users(UserId)`  |
@@ -58,10 +58,10 @@
 |---|---|---|---|
 | TaskId | INT | PK | Unique task identifier  |
 | ProjectId | INT | FK | References `Projects(ProjectId)`  |
-| TaskName | NVARCHAR(100) |  | Task name  |
+| TaskName | VARCHAR(100) |  | Task name  |
 | StartingDate | DATE |  | Task start date  |
 | EndingDate | DATE |  | Task due date  |
-| Comments | NVARCHAR(500) |  | Task description or note  |
+| Comments | VARCHAR(500) |  | Task description or note  |
 | PriorityId | INT | FK | References `TaskPriority(PriorityId)` |
 | StatusId | INT | FK | References `TaskStatus(StatusId)` |
 | CreatedAt | DATETIME |  | Record creation time, standardized from `CreateAt`  |
@@ -76,14 +76,14 @@
 | ParticipantId | INT | PK | Unique participation row identifier |
 | TaskId | INT | FK | References `Tasks(TaskId)` |
 | UserId | INT | FK | References `Users(UserId)`; normalized from ambiguous participant fielding in the ERD |
-| Responsibility | NVARCHAR(100) |  | Responsibility assigned to the participant |
+| Responsibility | VARCHAR(100) |  | Responsibility assigned to the participant |
 
 ### Attachments
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | AttachmentId | INT | PK | Unique attachment identifier |
-| AttachedFile | NVARCHAR(255) |  | File path or stored document name |
+| AttachedFile | VARCHAR(255) |  | File path or stored document name |
 
 ### TaskAttachments
 
@@ -99,8 +99,8 @@
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | ToDoId | INT | PK | Unique to-do list identifier |
-| ToDoName | NVARCHAR(100) |  | To-do list title |
-| Comment | NVARCHAR(500) |  | Optional list note |
+| ToDoName | VARCHAR(100) |  | To-do list title |
+| Comment | VARCHAR(500) |  | Optional list note |
 | StartingDate | DATE |  | Start date |
 | EndingDate | DATE |  | End date |
 | CreatedAt | DATETIME |  | Record creation time |
@@ -112,8 +112,8 @@
 |---|---|---|---|
 | ItemId | INT | PK | Unique item identifier |
 | ToDoId | INT | FK | References `ToDoList(ToDoId)` |
-| ItemName | NVARCHAR(100) |  | Item title |
-| Comment | NVARCHAR(500) |  | Optional item note |
+| ItemName | VARCHAR(100) |  | Item title |
+| Comment | VARCHAR(500) |  | Optional item note |
 
 ## Activity and request tables
 
@@ -134,7 +134,7 @@
 | TaskId | INT | FK | References `Tasks(TaskId)` |
 | RequestedBy | INT | FK | References `Users(UserId)`; standardized from `RequestBy` and `Requested_by` |
 | NewEndingDate | DATE |  | Proposed new due date |
-| Reason | NVARCHAR(500) |  | Reason for extension |
+| Reason | VARCHAR(500) |  | Reason for extension |
 | StatusId | INT | FK | References `RequestStatus(StatusId)` |
 | RequestedAt | DATETIME |  | Request creation time  |
 
@@ -144,7 +144,7 @@
 |---|---|---|---|
 | NotificationId | INT | PK | Unique notification identifier |
 | TaskId | INT | FK | References `Tasks(TaskId)` |
-| MessageTemplate | NVARCHAR(500) |  | Notification message text |
+| MessageTemplate | VARCHAR(500) |  | Notification message text |
 | ReminderDaysBefore | INT |  | Days before due date to remind |
 
 ## Lookup tables
@@ -154,28 +154,28 @@
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | PriorityId | INT | PK | Unique priority identifier |
-| PriorityName | NVARCHAR(50) |  | Example values: Low, Medium, High |
+| PriorityName | VARCHAR(50) |  | Example values: Low, Medium, High |
 
 ### TaskStatus
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | StatusId | INT | PK | Unique task status identifier |
-| StatusName | NVARCHAR(50) |  | Example values: Pending, In Progress, Completed |
+| StatusName | VARCHAR(50) |  | Example values: Pending, In Progress, Completed |
 
 ### ProjectStatus
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | StatusId | INT | PK | Unique project status identifier |
-| StatusName | NVARCHAR(50) |  | Example values: Planned, Active, Closed |
+| StatusName | VARCHAR(50) |  | Example values: Planned, Active, Closed |
 
 ### RequestStatus
 
 | Column | Type | Key | Notes |
 |---|---|---|---|
 | StatusId | INT | PK | Unique request status identifier |
-| StatusName | NVARCHAR(50) |  | Example values: Pending, Approved, Rejected |
+| StatusName | VARCHAR(50) |  | Example values: Pending, Approved, Rejected |
 
 ## Relationship summary
 
