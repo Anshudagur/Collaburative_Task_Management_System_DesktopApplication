@@ -1,0 +1,1 @@
+EXEC spInsertDataIntoOrganizationsTable @OrganizationName = ' NovaSync Solutions'
