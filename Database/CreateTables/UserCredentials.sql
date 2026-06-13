@@ -1,13 +1,21 @@
-CREATE TABLE tblUserCredentials(
-    UserId INT NOT NULL,
-    PasswordHash VARCHAR(255) NOT NULL,
-    Salt VARCHAR(255) NOT NULL,
-    IsFrozen BIT NOT NULL DEFAULT 0,
-    FreezeUntil DATETIME NULL,
+CREATE TABLE tblUsersCredentials(
+    UserId INT IDENTITY(1,1),
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) NOT NULL,
+    PhoneNumber INT NOT NULL,
+    OrganizationId INT NULL,
+    ProfilePhoto VARBINARY(MAX),
+    RoleId INT NOT NULL,
 
-    CONSTRAINT PK_tblUserCredentials_UserId
-        PRIMARY KEY (UserId),
-    CONSTRAINT FK_tblUserCredentials_UserId_tblUsers
-        FOREIGN KEY (UserId)
-        REFERENCES tblUsers(UserId)
+    CONSTRAINT PK_tblUsers_UserId
+		PRIMARY KEY (UserId),
+    CONSTRAINT UQ_tblUsers_Email 
+        UNIQUE (Email),
+    CONSTRAINT FK_tblUsers_OrganizationId_tblOrganizations 
+        FOREIGN KEY (OrganizationId) 
+        REFERENCES tblOrganizations(OrganizationId),
+    CONSTRAINT FK_tblUsers_RoleId_tblRoles 
+        FOREIGN KEY (RoleId) 
+        REFERENCES tblRoles(RoleId)
 );
